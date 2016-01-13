@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:gravity="center"
-            android:text="保蜂"
+            android:text="我的应用"
             android:textColor="#ffffff"
             android:textSize="18sp" 
             />

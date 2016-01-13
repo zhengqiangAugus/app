@@ -38,6 +38,7 @@ public class MainLayout extends PercentRelativeLayout{
 		touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
 	}
 	
+	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 		init();

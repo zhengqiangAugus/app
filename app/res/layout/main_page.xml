@@ -22,7 +22,7 @@
 	    android:layout_height="match_parent"
 	    android:layout_centerInParent="true"
 	    >
-	    <View 
+	    <View
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
 	        android:background="@drawable/shade_bg"
@@ -35,4 +35,4 @@
 	     >
 	    <include layout="@layout/center"/>
 	</FrameLayout>
-</com.zq.app.view.MainLayout>
+</com.zq.app.view.MainLayout >
