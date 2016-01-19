@@ -25,6 +25,8 @@
 
      <style name="AnimationActivity2" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/move_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/move_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/move_in</item>
         <item name="android:activityCloseExitAnimation">@anim/move_out</item>
     </style>
     

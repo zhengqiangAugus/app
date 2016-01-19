@@ -37,7 +37,7 @@ public class AutoFitImageView extends ImageView {
 			Bitmap bmp = drawable2Bitmap(dra);
 			float bw = bmp.getWidth();
 			float bh = bmp.getHeight();
-			h = bw / bh * w;
+			h = bh / bw * w;
 		}
 		setMeasuredDimension((int)w,(int)h);
 	}

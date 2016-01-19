@@ -32,17 +32,12 @@ public class MainActivity extends Activity implements OnClickListener,Loadable{
 		if(closeLeft){
 			main.closeLeft();
 		}
-		View menu = findViewById(R.id.menu);
-		menu.setOnClickListener(this);
 	}
 	
 	
 	public void onClick(View arg0) {
 		int id = arg0.getId();
 		switch (id) {
-			case R.id.menu:
-				main.showLeft();
-				break;
 		}
 	}
 }
