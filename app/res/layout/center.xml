@@ -3,67 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-
     <ImageView
 	    android:id="@+id/center"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:orientation="vertical" 
 	    android:contentDescription="@string/app_name"
-	    android:src="@drawable/home_bg"
-	    android:scaleType="matrix"
+	    android:src="@drawable/green"
+	    android:scaleType="fitXY"
 	    />
-
-	<com.zq.app.view.FixGridLayout
+    <com.zq.app.view.FixGridLayout 
+	    xmlns:app="http://schemas.android.com/apk/res-auto"
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
+	    android:layout_height="match_parent"
 	    >
-
-	    <TextView
-	        android:id="@+id/open_snow"
+	    <android.support.percent.PercentLinearLayout
 	        android:layout_width="0dp"
-	        android:layout_height="60dp"
-	        android:background="#ffdd00" 
-	        app:layout_widthPercent="90%w"
-	        app:layout_marginPercent="5%w"
-	        android:text="打开桌面雪花"
+	        android:layout_height="0dp"
+	        app:layout_widthPercent="20%w"
+	        app:layout_heightPercent="25%w"
+	        app:layout_marginLeftPercent="4%w"
+	        app:layout_marginTopPercent="4%w"
+	        android:orientation="vertical"
+	        app:layout_paddingLeftPercent="2.5%w"
+	        app:layout_paddingRightPercent="2.5%w"
 	        android:gravity="center"
-	        android:textSize="16sp"
-	        />
-	    
-	    <TextView
-	        android:layout_width="0dp"
-	        android:layout_height="60dp"
-	        android:background="#ff00dd" 
-	        app:layout_widthPercent="50%w"
-	        />
-	    
-	    <TextView
-	        android:layout_width="0dp"
-	        android:layout_height="60dp"
-	        android:background="#ddff00" 
-	        app:layout_widthPercent="50%w"
-	        />
-	    <TextView
-	        android:layout_width="0dp"
-	        android:layout_height="60dp"
-	        android:background="#dd00ff" 
-	        app:layout_widthPercent="50%w"
-	        />
-	    <TextView
-	        android:layout_width="0dp"
-	        android:layout_height="80dp"
-	        android:background="#00ddff" 
-	        app:layout_widthPercent="50%w"
-	        />
+	        android:background="@drawable/icon_item_bg"
+	        >
+	        <ImageView 
+	            android:layout_width="0dp"
+	        	android:layout_height="0dp"
+	        	app:layout_heightPercent="80%w"
+	        	app:layout_widthPercent="80%w"
+	        	android:padding="5dp"
+	        	android:src="@drawable/snow"
+	            />
+	        <TextView 
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:text="雪花效果"
+	            android:gravity="center"
+	            app:layout_textSizePercent="15%h"
+	            android:textColor="#ffffff"
+	            />
+	    </android.support.percent.PercentLinearLayout>
 	</com.zq.app.view.FixGridLayout>
-	<!-- <com.zq.app.view.SnowImageView
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:orientation="vertical" 
-		android:contentDescription="@string/app_name"
-		android:background="#00000000"
-		android:clickable="false"
-	    /> -->
 </RelativeLayout>
 

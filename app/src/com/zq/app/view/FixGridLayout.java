@@ -79,45 +79,47 @@ public class FixGridLayout extends PercentRelativeLayout{
 		int count = getChildCount();
 		int width =	MeasureSpec.getSize(widthMeasureSpec);
 		int height = MeasureSpec.getSize(heightMeasureSpec);
-		int tt = 0,ll = 0 , rowMaxt = 0;
-		int l ,r ,t ,b = 0 ,cl ,ct = 0 ,cr,cb = 0,cw ,ch = 0;
-		for(int i = 0;i<count;i++){
-			View child = getChildAt(i);
-			LayoutParams childlp = (LayoutParams) child.getLayoutParams();
-			cw = childlp.width;
-			if(cw<0)cw = width;
-			ch = childlp.height;
-			if(ch<0)ch = height;
-			cl = childlp.leftMargin;
-			cr = childlp.rightMargin;
-			ct = childlp.topMargin;
-			cb = childlp.bottomMargin;
-			l = cl + ll;
-			r = l + cw;
-			t = ct + tt;
-			b = t + ch;
-			ll = r + cr;
-			if(b + cb> rowMaxt){
-				rowMaxt = b +cb;
-			}
-			boolean wrap = false;
-			if(i<count-1){
-				View next = getChildAt(i+1);
-				childlp = (LayoutParams) next.getLayoutParams();
+		if(MeasureSpec.getMode(heightMeasureSpec) != MeasureSpec.EXACTLY){
+			int tt = 0,ll = 0 , rowMaxt = 0;
+			int l ,r ,t ,b = 0 ,cl ,ct = 0 ,cr,cb = 0,cw ,ch = 0;
+			for(int i = 0;i<count;i++){
+				View child = getChildAt(i);
+				LayoutParams childlp = (LayoutParams) child.getLayoutParams();
 				cw = childlp.width;
 				if(cw<0)cw = width;
+				ch = childlp.height;
+				if(ch<0)ch = height;
 				cl = childlp.leftMargin;
 				cr = childlp.rightMargin;
-				if(ll + cl + cw + cr>width){
-					wrap = true;
+				ct = childlp.topMargin;
+				cb = childlp.bottomMargin;
+				l = cl + ll;
+				r = l + cw;
+				t = ct + tt;
+				b = t + ch;
+				ll = r + cr;
+				if(b + cb> rowMaxt){
+					rowMaxt = b +cb;
+				}
+				boolean wrap = false;
+				if(i<count-1){
+					View next = getChildAt(i+1);
+					childlp = (LayoutParams) next.getLayoutParams();
+					cw = childlp.width;
+					if(cw<0)cw = width;
+					cl = childlp.leftMargin;
+					cr = childlp.rightMargin;
+					if(ll + cl + cw + cr>width){
+						wrap = true;
+					}
+				}
+				if(ll >= width||wrap){
+					tt = rowMaxt;
+					ll = 0;
 				}
 			}
-			if(ll >= width||wrap){
-				tt = rowMaxt;
-				ll = 0;
-			}
+			height = b;
 		}
-		height = b;
 		setMeasuredDimension(width, height);
 	}
 	

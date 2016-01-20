@@ -34,13 +34,13 @@ public class MainActivity extends Activity implements OnClickListener,Loadable{
 		if(closeLeft){
 			main.closeLeft();
 		}
-		View open_snow = findViewById(R.id.open_snow);
+		/*View open_snow = findViewById(R.id.open_snow);
 		open_snow.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View arg0) {
 				Intent intent = new Intent(getApplicationContext(),TransparentService.class);
 				startService(intent);
 			}
-		});
+		});*/
 	}
 	
 	
