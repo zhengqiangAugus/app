@@ -10,10 +10,12 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.RemoteViews.RemoteView;
 
 /**
  * Created by zhy on 15/6/30.
  */
+@RemoteView
 public class PercentLinearLayout extends LinearLayout {
 
 	private PercentLayoutHelper mPercentLayoutHelper;

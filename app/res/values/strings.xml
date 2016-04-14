@@ -1,5 +1,7 @@
 <resources>
 
     <string name="app_name">我的应用</string>
-
+	<string-array name="list">
+	    <item>123</item>
+	</string-array>
 </resources>

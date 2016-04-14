@@ -1,6 +1,9 @@
 package com.zq.app.util;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
@@ -120,4 +123,21 @@ public class CommUtil {
         bm.compress(Bitmap.CompressFormat.PNG, quality, baos); 
         return baos.toByteArray();
 	}
+	
+	public static boolean isServiceWork(Context mContext, String serviceName) {  
+	    boolean isWork = false;  
+	    ActivityManager myAM = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);  
+	    List<RunningServiceInfo> myList = myAM.getRunningServices(40);  
+	    if (myList.size() <= 0) {  
+	        return false;  
+	    }  
+	    for (int i = 0; i < myList.size(); i++) {  
+	        String mName = myList.get(i).service.getClassName().toString();  
+	        if (mName.equals(serviceName)) {  
+	            isWork = true;  
+	            break;  
+	        }  
+	    }  
+	    return isWork;  
+	}  
 }

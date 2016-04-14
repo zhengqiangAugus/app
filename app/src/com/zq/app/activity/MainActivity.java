@@ -3,6 +3,7 @@ package com.zq.app.activity;
 
 import com.zq.app.R;
 import com.zq.app.util.AppManager;
+import com.zq.app.util.CommUtil;
 import com.zq.app.util.Loadable;
 import com.zq.app.view.MainLayout;
 import com.zq.service.TransparentService;
@@ -34,19 +35,21 @@ public class MainActivity extends Activity implements OnClickListener,Loadable{
 		if(closeLeft){
 			main.closeLeft();
 		}
-		/*View open_snow = findViewById(R.id.open_snow);
-		open_snow.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View arg0) {
-				Intent intent = new Intent(getApplicationContext(),TransparentService.class);
-				startService(intent);
-			}
-		});*/
+		View snow = findViewById(R.id.snow);
+		snow.setOnClickListener(this);
 	}
-	
 	
 	public void onClick(View arg0) {
 		int id = arg0.getId();
 		switch (id) {
+		case R.id.snow:
+			Intent intent = new Intent(this,TransparentService.class);
+			if(!CommUtil.isServiceWork(this,TransparentService.class.getName())){
+				startService(intent);
+			}else{
+				stopService(intent);
+			}
+			break;
 		}
 	}
 }

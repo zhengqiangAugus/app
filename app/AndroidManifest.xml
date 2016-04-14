@@ -1,11 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zq.app"
     android:versionCode="1"
-    android:versionName="1.0" >
-
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="21" />
+    android:versionName="1.0" 
+    android:installLocation="auto"
+    >
+    
 	<uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -30,18 +29,21 @@
     
 	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-	
+	<uses-sdk 
+	    android:minSdkVersion="8"
+	    android:targetSdkVersion="21"
+	    />
     <application
         android:allowBackup="true"
         android:icon="@drawable/favicona"
         android:label="@string/app_name"
         android:hardwareAccelerated="false"
-        android:theme="@style/ThemeActivity" >
+        android:theme="@style/ThemeActivity"
+         >
         <activity
             android:name="com.zq.app.activity.MainActivity"
             android:label="@string/app_name" 
             >
-            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 
@@ -50,6 +52,17 @@
             
         </activity>
         <service android:name="com.zq.service.TransparentService"></service>
+        <activity android:name="com.zq.preferences.SnowPreferences"/>
+        
+        <receiver android:name="com.zq.app.widget.SnowWidgetProvider" >
+            <intent-filter >
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="update" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/open_close" />
+        </receiver>
     </application>
 
 </manifest>
