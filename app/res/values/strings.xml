@@ -4,4 +4,7 @@
 	<string-array name="list">
 	    <item>123</item>
 	</string-array>
+	<string name="ac_login_account">账号/手机号</string>
+	<string name="ac_login_pwd">密码</string>
+	<string name="ac_login_sub">登录</string>
 </resources>

@@ -3,31 +3,25 @@ import java.util.Stack;
 import android.app.Activity;
 
 public class AppManager{
-	private static AppManager instance;
 	
-	private Stack<Loadable> acs = new Stack<Loadable>();
+	private static Stack<Loadable> acs = new Stack<Loadable>();
 	
-	public synchronized static AppManager getAppManager(){
-		if(instance == null)
-			instance = new AppManager();
-		return instance;
+	
+	public static void addLoadable(Loadable ac){
+		acs.add(ac);
 	}
 	
-	public void addLoadable(Loadable ac){
-		this.acs.add(ac);
+	public static void removeLoadable(Loadable ac){
+		acs.remove(ac);
 	}
 	
-	public void removeLoadable(Loadable ac){
-		this.acs.remove(ac);
-	}
-	
-	public Loadable prevLoadable(){
+	public static Loadable prevLoadable(){
 		if(acs.size()>1)
 			return acs.get(acs.size()-2);
 		return null;
 	}
 	
-	public void finishBefore(int leftCount){
+	public static void finishBefore(int leftCount){
 		for (Loadable activity : acs) {
 			System.out.println(activity);
 		}
@@ -36,21 +30,21 @@ public class AppManager{
 		}
 	}
 	
-	public void reloadPrev(){
+	public static void reloadPrev(){
 		Loadable ac = prevLoadable();
 		if(ac!=null){
 			ac.load();
 		}
 	}
 	
-	public void reloadCurrent(){
+	public static void reloadCurrent(){
 		Loadable ac = currentLoadable();
 		if(ac!=null){
 			ac.load();
 		}
 	}
 	
-	public void closeLastLoadable(){
+	public static void closeLastLoadable(){
 		Loadable ac = currentLoadable();
 		if(ac!=null){
 			acs.remove(ac);
@@ -58,9 +52,9 @@ public class AppManager{
 		}
 	}
 	
-	public Loadable currentLoadable(){
+	public static Loadable currentLoadable(){
 		if(acs.size()>0)
-			return this.acs.lastElement();
+			return acs.lastElement();
 		else
 			return null;
 	}

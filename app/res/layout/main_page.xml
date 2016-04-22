@@ -28,11 +28,11 @@
 	        android:background="@drawable/shade_bg"
 	        />
 	</RelativeLayout>
-	<FrameLayout 
+	<LinearLayout
 	    android:id="@+id/center_frame"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	     >
 	    <include layout="@layout/center"/>
-	</FrameLayout>
+	</LinearLayout>
 </com.zq.app.view.MainLayout >

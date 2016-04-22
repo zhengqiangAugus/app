@@ -4,14 +4,14 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.NoTitleBar">
-        <item name="android:windowBackground">@color/white</item>
-        <item name="android:textColor">@color/black</item>
+    <style name="AppBaseTheme" parent="@android:style/Theme.Light">
     </style>
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-    </style>
+  	<style name="AppTheme" parent="@android:style/Theme">     
+        <item name="android:windowNoTitle">true</item> 设置没有标题
+        <item name="android:textSize">20sp</item>   设置文本大小
+        <item name="android:windowAnimationStyle">@style/AnimationActivity2</item>
+    </style> 
 	
      <style name="ThemeActivity" parent="@android:style/Theme.NoTitleBar">
         <item name="android:windowAnimationStyle">@style/AnimationActivity2</item>

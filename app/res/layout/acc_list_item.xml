@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/white" 
+    >
+	<com.zq.app.view.CircleImageView
+        android:id="@+id/face"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/home_bg_1" />
+	
+	<TextView 
+	    android:id="@+id/acc"
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:gravity="center_vertical"
+	    android:text="269724906"
+	    android:layout_toRightOf="@+id/face"
+	    android:textSize="16sp"
+	    android:textColor="@color/black"
+	    android:layout_centerVertical="true"
+	    />
+	<ImageView 
+	    android:id="@+id/delete"
+	    android:layout_width="20dp"
+	    android:layout_height="20dp"
+	    android:src="@drawable/cha"
+	    android:layout_alignParentRight="true"
+	    android:layout_margin="15dp"
+	    />
+</RelativeLayout>
