@@ -43,26 +43,26 @@ public final class Application extends android.app.Application{
 		
 		File cacheDir = StorageUtils.getCacheDirectory(getApplicationContext());  //缓存文件夹路径
     	ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-    	        .threadPoolSize(5) // default  线程池内加载的数量
-    	        .threadPriority(Thread.NORM_PRIORITY + 2) // default 设置当前线程的优先级
-    	        .tasksProcessingOrder(QueueProcessingType.FIFO) // default
-    	        .denyCacheImageMultipleSizesInMemory()
-    	        .memoryCache(new LruMemoryCache(2 * 1024 * 1024)) //可以通过自己的内存缓存实现
-    	        .memoryCacheSize(10 * 1024 * 1024)  // 内存缓存的最大值
-    	        .memoryCacheSizePercentage(15) // default
-    	        .discCache(new UnlimitedDiscCache(cacheDir)) // default 可以自定义缓存路径  
-    	        .discCacheSize(100 * 1024 * 1024) // 50 Mb sd卡(本地)缓存的最大值
-    	        .discCacheFileCount(100)  // 可以缓存的文件数量 
-    	        // default为使用HASHCODE对UIL进行加密命名， 还可以用MD5(new Md5FileNameGenerator())加密
-    	        .discCacheFileNameGenerator(new HashCodeFileNameGenerator()) 
-    	        //.imageDownloader(new BaseImageDownloader(getApplicationContext())) // default
-    	        //.defaultDisplayImageOptions(DisplayImageOptions.createSimple()) // default
-    	        .writeDebugLogs() // 打印debug log
-    	        .build(); //开始构建
+	        .threadPoolSize(5) // default  线程池内加载的数量
+	        .threadPriority(Thread.NORM_PRIORITY + 2) // default 设置当前线程的优先级
+	        .tasksProcessingOrder(QueueProcessingType.FIFO) // default
+	        .denyCacheImageMultipleSizesInMemory()
+	        .memoryCache(new LruMemoryCache(2 * 1024 * 1024)) //可以通过自己的内存缓存实现
+	        .memoryCacheSize(10 * 1024 * 1024)  // 内存缓存的最大值
+	        .memoryCacheSizePercentage(15) // default
+	        .discCache(new UnlimitedDiscCache(cacheDir)) // default 可以自定义缓存路径  
+	        .discCacheSize(100 * 1024 * 1024) // 50 Mb sd卡(本地)缓存的最大值
+	        .discCacheFileCount(100)  // 可以缓存的文件数量 
+	        // default为使用HASHCODE对UIL进行加密命名， 还可以用MD5(new Md5FileNameGenerator())加密
+	        .discCacheFileNameGenerator(new HashCodeFileNameGenerator()) 
+	        //.imageDownloader(new BaseImageDownloader(getApplicationContext())) // default
+	        //.defaultDisplayImageOptions(DisplayImageOptions.createSimple()) // default
+	        .writeDebugLogs() // 打印debug log
+	        .build(); //开始构建
         //Initialize ImageLoader with configuration.  
         ImageLoader.getInstance().init(config);
 		
-		 //必须首先执行这部分代码, 如果在":TCMSSevice"进程中，无需进行云旺（OpenIM）和app业务的初始化，以节省内存;
+		//必须首先执行这部分代码, 如果在":TCMSSevice"进程中，无需进行云旺（OpenIM）和app业务的初始化，以节省内存;
 		SysUtil.setApplication(this);
 		if(!SysUtil.isTCMSServiceProcess(this)){
 			//第一个参数是Application Context

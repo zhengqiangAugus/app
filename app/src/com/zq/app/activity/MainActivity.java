@@ -1,14 +1,9 @@
 package com.zq.app.activity;
 
 
-import com.alibaba.mobileim.YWAPI;
-import com.alibaba.mobileim.YWIMKit;
 import com.zq.app.R;
-import com.zq.app.base.AppConstants;
-import com.zq.app.base.Application;
 import com.zq.app.bean.User;
-import com.zq.app.bean.UserDao;
-import com.zq.app.bean.UserDao.Properties;
+import com.zq.app.fragment.ConversationFragment;
 import com.zq.app.util.AppManager;
 import com.zq.app.util.CommUtil;
 import com.zq.app.util.Loadable;
@@ -22,14 +17,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements OnClickListener,Loadable{
 	
-	private UserDao userDao = Application.getDosession().getUserDao();
-	
 	MainLayout main;
 	
+	View tabs[] = new View[3];
+	
 	Fragment frags[] = new Fragment[3];
+	
+	int curIndex = 0;
 	
 	User user;
 	
@@ -38,9 +36,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener,Lo
 		setContentView(R.layout.main_page);
 		AppManager.addLoadable(this);
 		
-		user = userDao.queryBuilder().where(Properties.IsLogin.eq(true)).list().get(0);
-		YWIMKit imkit = YWAPI.getIMKitInstance(user.getId(),Application.getValue(AppConstants.IM_APPKEY));
-		Fragment chat = imkit.getConversationFragment();
+		tabs[0] = findViewById(R.id.chat);
+		tabs[0].findViewById(R.id.tab_img).setSelected(true);
+		((TextView)tabs[0].findViewById(R.id.tab_text)).setTextColor(getResources().getColorStateList(R.color.tab_blue));
+		tabs[1] = findViewById(R.id.contacts);
+		tabs[2] = findViewById(R.id.news);
+		
+		Fragment chat = new ConversationFragment();
 		frags[0] = chat;
 		getSupportFragmentManager().beginTransaction().add(R.id.main, chat).commit();
 		load();
@@ -49,7 +51,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener,Lo
 	Handler handler = new Handler();
 	public void load(){
 		main = (MainLayout) findViewById(R.id.main_layout);
-		
 	}
 	
 	public void onClick(View arg0) {
@@ -68,6 +69,34 @@ public class MainActivity extends FragmentActivity implements OnClickListener,Lo
 	
 	public void finish() {
 		moveTaskToBack(false);
+	}
+	
+	public void onTabClick(View view){
+		int index = 0;
+		switch (view.getId()) {
+		case R.id.chat:
+			index = 0;
+			break;
+		case R.id.contacts:
+			index = 1;
+			break;
+		case R.id.news:
+			index = 2;
+			break;
+		}
+		if(index == curIndex)return;
+		TextView tab_text = (TextView) view.findViewById(R.id.tab_text);
+		tab_text.setTextColor(getResources().getColorStateList(R.color.tab_blue));
+		view.findViewById(R.id.tab_img).setSelected(true);
+		tabs[curIndex].findViewById(R.id.tab_img).setSelected(false);
+		((TextView)tabs[curIndex].findViewById(R.id.tab_text)).setTextColor(getResources().getColorStateList(R.color.tab_gray));
+		
+		curIndex = index;
+		
+	}
+	
+	public void toggleLeft(View view){
+		main.showLeft();
 	}
 	
 }
