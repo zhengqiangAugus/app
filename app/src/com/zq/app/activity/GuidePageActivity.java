@@ -41,6 +41,7 @@ public class GuidePageActivity extends Activity{
 			IYWLoginService loginService = imkit.getLoginService();
 			YWLoginParam loginParam = YWLoginParam.createLoginParam(user.getId(),user.getPassword());
 			loginService.login(loginParam,null);
+			Application.setImkit(imkit);
 			intent = new Intent(this,MainActivity.class);
 		}else{
 			intent = new Intent(this,LoginActivity.class);

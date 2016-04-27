@@ -10,13 +10,14 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/white"
-        android:layout_weight="1" />
-	<View 
-	    android:layout_width="match_parent"
-	    android:layout_height="1px"
-	    android:background="#a3a3a3"
-	    />
+        android:layout_weight="1"
+        android:background="@color/white" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#a3a3a3" />
+
     <LinearLayout
         android:id="@+id/bottom"
         android:layout_width="match_parent"
@@ -24,88 +25,109 @@
         android:background="@color/white"
         android:orientation="horizontal" >
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/chat"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="5dp"
             android:gravity="center"
-            android:onClick="onTabClick"
-            android:orientation="vertical" >
-            
-           	<ImageView 
-           	    android:id="@+id/tab_img"
-           	    android:layout_width="28dp"
-           	    android:layout_height="28dp"
-           	    android:src="@drawable/mess"
-           	    android:scaleType="fitCenter"
-           	    />
-            <TextView 
-                android:id="@+id/tab_text"
+            android:onClick="onTabClick" >
+
+            <LinearLayout
+                android:id="@+id/chat_inner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10dp"
-                android:textColor="@color/tab_gray"
-                android:text="聊天"
-                />
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:onClick="onTabClick"
+                android:orientation="vertical"
+                android:padding="5dp" >
+
+                <ImageView
+                    android:id="@+id/tab_img"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/mess" />
+
+                <TextView
+                    android:id="@+id/tab_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="聊天"
+                    android:textColor="@color/tab_gray"
+                    android:textSize="10dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/unreadcount"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="-15dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/chat_inner"
+                android:background="@drawable/icon_unread_count"
+                android:gravity="center"
+                android:text="99"
+                android:textColor="@color/white"
+                android:visibility="invisible"
+                android:textSize="10dp" />
+            
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/contacts"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="5dp"
             android:gravity="center"
             android:onClick="onTabClick"
-            android:orientation="vertical" >
-            
-           	<ImageView 
-           	    android:id="@id/tab_img"
-           	    android:layout_width="28dp"
-           	    android:layout_height="28dp"
-           	    android:src="@drawable/contacts"
-           	    android:scaleType="fitCenter"
-           	    android:padding="3dp"
-           	    />
-            <TextView 
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <ImageView
+                android:id="@id/tab_img"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:padding="3dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/contacts" />
+
+            <TextView
                 android:id="@id/tab_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
-                android:textColor="@color/tab_gray"
                 android:text="联系人"
-                />
+                android:textColor="@color/tab_gray"
+                android:textSize="10dp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/news"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="5dp"
             android:gravity="center"
             android:onClick="onTabClick"
-            android:orientation="vertical" >
-            
-           	<ImageView 
-           	    android:id="@id/tab_img"
-           	    android:layout_width="28dp"
-           	    android:layout_height="28dp"
-           	    android:src="@drawable/star"
-           	    android:scaleType="fitCenter"
-           	    android:padding="3dp"
-           	    />
-            <TextView 
+            android:orientation="vertical"
+            android:padding="5dp" >
+
+            <ImageView
+                android:id="@id/tab_img"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:padding="3dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/star" />
+
+            <TextView
                 android:id="@id/tab_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
-                android:textColor="@color/tab_gray"
                 android:text="动态"
-                />
+                android:textColor="@color/tab_gray"
+                android:textSize="10dp" />
         </LinearLayout>
-        
     </LinearLayout>
 
 </LinearLayout>

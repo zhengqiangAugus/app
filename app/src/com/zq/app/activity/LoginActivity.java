@@ -144,6 +144,7 @@ public class LoginActivity extends Activity implements View.OnClickListener,Load
 				Intent intent = new Intent(LoginActivity.this,MainActivity.class);//imkit.getConversationActivityIntent();
 				startActivity(intent);
 				AppManager.closeLastLoadable();
+				Application.setImkit(imkit);
 			}
 			public void onProgress(int arg0) {}
 			public void onError(int code, String arg1) {

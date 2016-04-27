@@ -1,9 +1,10 @@
 package com.zq.app.activity;
 
 
+import com.alibaba.mobileim.conversation.IYWConversationUnreadChangeListener;
 import com.zq.app.R;
+import com.zq.app.base.Application;
 import com.zq.app.bean.User;
-import com.zq.app.fragment.ConversationFragment;
 import com.zq.app.util.AppManager;
 import com.zq.app.util.CommUtil;
 import com.zq.app.util.Loadable;
@@ -19,13 +20,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-public class MainActivity extends FragmentActivity implements OnClickListener,Loadable{
+public class MainActivity extends FragmentActivity implements OnClickListener,Loadable,IYWConversationUnreadChangeListener{
 	
 	MainLayout main;
 	
 	View tabs[] = new View[3];
 	
 	Fragment frags[] = new Fragment[3];
+	
+	TextView unreadcount;
 	
 	int curIndex = 0;
 	
@@ -42,15 +45,28 @@ public class MainActivity extends FragmentActivity implements OnClickListener,Lo
 		tabs[1] = findViewById(R.id.contacts);
 		tabs[2] = findViewById(R.id.news);
 		
-		Fragment chat = new ConversationFragment();
-		frags[0] = chat;
-		getSupportFragmentManager().beginTransaction().add(R.id.main, chat).commit();
+		frags[0] = Application.getImkit().getConversationFragment();
+		frags[1] = Application.getImkit().getContactsFragment();
+		frags[2] = new Fragment();
+		getSupportFragmentManager().beginTransaction()
+		.add(R.id.main, frags[0])
+		.add(R.id.main, frags[1])
+		.add(R.id.main, frags[2])
+		.hide(frags[1])
+		.hide(frags[2])
+		.show(frags[0])
+		.commit();
+		
+		Application.getImkit().getConversationService().addTotalUnreadChangeListener(this);
+		
 		load();
 	}
 	
 	Handler handler = new Handler();
 	public void load(){
 		main = (MainLayout) findViewById(R.id.main_layout);
+		unreadcount = (TextView) findViewById(R.id.unreadcount);
+		onUnreadChange();
 	}
 	
 	public void onClick(View arg0) {
@@ -91,12 +107,34 @@ public class MainActivity extends FragmentActivity implements OnClickListener,Lo
 		tabs[curIndex].findViewById(R.id.tab_img).setSelected(false);
 		((TextView)tabs[curIndex].findViewById(R.id.tab_text)).setTextColor(getResources().getColorStateList(R.color.tab_gray));
 		
+		getSupportFragmentManager().beginTransaction()
+		.hide(frags[curIndex])
+		.show(frags[index])
+		.commit();
+		load();
+		
 		curIndex = index;
 		
 	}
 	
 	public void toggleLeft(View view){
 		main.showLeft();
+	}
+	public void onUnreadChange() {
+		handler.post(new Runnable() {
+			public void run() {
+				int count = Application.getImkit().getConversationService().getAllUnreadCount() ;
+				if(count>0&&count <= 99){
+					unreadcount.setVisibility(View.VISIBLE);
+					unreadcount.setText(count+"");
+				}else if(count > 99){
+					unreadcount.setVisibility(View.VISIBLE);
+					unreadcount.setText("...");
+				}else{
+					unreadcount.setVisibility(View.INVISIBLE);
+				}
+			}
+		});
 	}
 	
 }

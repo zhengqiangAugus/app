@@ -6,6 +6,9 @@ import java.util.Properties;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.alibaba.mobileim.YWAPI;
+import com.alibaba.mobileim.YWIMKit;
+import com.alibaba.mobileim.aop.AdviceBinder;
+import com.alibaba.mobileim.aop.PointCutEnum;
 import com.alibaba.wxlib.util.SysUtil;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
@@ -18,6 +21,7 @@ import com.zq.app.R;
 import com.zq.app.bean.DaoMaster;
 import com.zq.app.bean.DaoMaster.DevOpenHelper;
 import com.zq.app.bean.DaoSession;
+import com.zq.app.im.ui.ConversationList;
 
 public final class Application extends android.app.Application{
 	
@@ -69,9 +73,21 @@ public final class Application extends android.app.Application{
 			//这里的APP_KEY即应用创建时申请的APP_KEY，同时初始化必须是在主进程中
 			SysUtil.isMainProcess(getApplicationContext());
 			YWAPI.init(this,preference.getProperty(AppConstants.IM_APPKEY));
+			AdviceBinder.bindAdvice(PointCutEnum.CONVERSATION_FRAGMENT_UI_POINTCUT,ConversationList.class);
 		}
 	}
 	
+	
+	private static YWIMKit imkit;
+	
+	public static YWIMKit getImkit() {
+		return imkit;
+	}
+
+	public static void setImkit(YWIMKit imkit) {
+		Application.imkit = imkit;
+	}
+
 	public static String getValue(String key){
 		return getInstance().preference.getProperty(key);
 	}

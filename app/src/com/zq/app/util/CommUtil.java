@@ -10,6 +10,7 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
+import android.util.TypedValue;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -18,6 +19,8 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.zq.app.base.Application;
 
 @SuppressLint("DefaultLocale")
 public class CommUtil {
@@ -140,4 +143,9 @@ public class CommUtil {
 	    }  
 	    return isWork;  
 	}  
+	
+	
+	public static int dp2px(int dp) {
+		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,Application.getInstance().getResources().getDisplayMetrics());
+	}
 }
