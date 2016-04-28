@@ -1,6 +1,8 @@
 package com.zq.app.view;
 
 
+import cn.swu.swipemenulistview.SwipeMenuLayout;
+
 import com.zq.app.R;
 
 import android.annotation.SuppressLint;
@@ -68,9 +70,9 @@ public class MainLayout extends PercentRelativeLayout{
 					if (main != null) {
 						main.scrollTo(x, y);
 						if (x < 0)
-							shade.scrollTo(x + 20, y);
+							shade.scrollTo(x + 10, y);
 						else
-							shade.scrollTo(x - 20, y);
+							shade.scrollTo(x - 10, y);
 					}
 				}
 				invalidate();
@@ -82,6 +84,8 @@ public class MainLayout extends PercentRelativeLayout{
 	float lastX,lastY;
 	float touchSlop;
 	int VELOCITY = 50;
+	static final int LAYOUT = 0,MENU = 1;
+	int type = -1;
 	public boolean onTouchEvent(MotionEvent ev) {
 		if (vt == null) {
 			vt = VelocityTracker.obtain();
@@ -89,27 +93,23 @@ public class MainLayout extends PercentRelativeLayout{
 		vt.addMovement(ev);
 		final int action = ev.getAction();
 		final float x = ev.getX();
-		final float y = ev.getY();
 		switch (action) {
 		case MotionEvent.ACTION_DOWN:
 			if (!scroller.isFinished()) {
 				scroller.abortAnimation();
 			}
 			lastX = x;
-			lastY = y;
-			if (main.getScrollX() == -left.getWidth()&& lastX < left.getWidth()) {
-				return false;
-			}
 			break;
 		case MotionEvent.ACTION_MOVE:
-			if (draged) {
-				final float deltaX = lastX - x;
+			switch (type) {
+			case LAYOUT:
+				final float dx = lastX - x;
 				lastX = x;
 				float oldScrollX = main.getScrollX();
-				float scrollX = oldScrollX + deltaX;
+				float scrollX = oldScrollX + dx;
 				if (scrollX > 0)
 					scrollX = 0;
-				if (deltaX < 0 && oldScrollX < 0) { // left view
+				if (dx < 0 && oldScrollX < 0) { // left view
 					final float leftBound = 0;
 					final float rightBound = -left.getWidth();
 					if (scrollX > leftBound) {
@@ -121,16 +121,22 @@ public class MainLayout extends PercentRelativeLayout{
 				if (main != null) {
 					main.scrollTo((int) scrollX,main.getScrollY());
 					if (scrollX < 0)
-						shade.scrollTo((int) scrollX + 20,main.getScrollY());
+						shade.scrollTo((int) scrollX + 10,main.getScrollY());
 					else
-						shade.scrollTo((int) scrollX - 20,main.getScrollY());
+						shade.scrollTo((int) scrollX - 10,main.getScrollY());
 				}
-
+				break;
+			case MENU:
+				if(menu!=null){
+					menu.onSwipe(ev);
+				}
+				break;
 			}
 			break;
 		case MotionEvent.ACTION_CANCEL:
 		case MotionEvent.ACTION_UP:
-			if (draged) {
+			switch (type) {
+			case LAYOUT:
 				final VelocityTracker velocityTracker = vt;
 				velocityTracker.computeCurrentVelocity(100);
 				float xVelocity = velocityTracker.getXVelocity();			
@@ -149,43 +155,67 @@ public class MainLayout extends PercentRelativeLayout{
 
 				}
 				smoothScrollTo(dx);
+				if (main.getScrollX() == -left.getWidth()&& lastX > left.getWidth()) {
+					showLeft();
+				}
+				break;
+			case MENU:
+				if(menu!=null){
+					menu.onSwipe(ev);
+					if(!menu.isOpen()){
+						oldMenu = this.menu;
+						menu = null;
+					}
+				}
+				break;
 			}
 			break;
 		}
 		return true;
 	}
-	boolean intered = true;
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
 		final int action = ev.getAction();
 		final float x = ev.getX();
-		final float y = ev.getY();
 		switch (action) {
 		case MotionEvent.ACTION_DOWN:
 			lastX = x;
-			lastY = y;
-			intered = false;
+			if (main.getScrollX() == -left.getWidth()&& lastX > left.getWidth()){
+				return true;
+			}
+			if(menu!=null && oldMenu != menu && oldMenu !=null && menu.isOpen()){
+				menu.smoothCloseMenu();
+				menu = null;
+				return true;
+			}
 			break;
 		case MotionEvent.ACTION_MOVE:
 			final float dx = x - lastX;
-			final float xDiff = Math.abs(dx);
-			final float yDiff = Math.abs(y - lastY);
-			if (xDiff > touchSlop && xDiff > yDiff) {
-				if (draged) {
-					float oldScrollX = main.getScrollX();
-					if (oldScrollX < 0) {
-						intered = true;
-						lastX = x;
-					} else {
-						if (dx > 0) {
-							intered = true;
-							lastX = x;
-						}
-					}
-				} 
+			if (dx > touchSlop) {
+				type = LAYOUT;
+				return true;
+			}else if (main.getScrollX() == -left.getWidth()&&Math.abs(dx) > touchSlop) {
+				type = LAYOUT;
+				return true;
+			}else if(menu!=null && -dx > touchSlop){
+				type = MENU;
+				return  true;
+			}else{
+				type = -1;
+			}
+			break;
+		case MotionEvent.ACTION_UP:
+			type = -1;
+			if (main.getScrollX() == -left.getWidth()&& lastX > left.getWidth()) {
+				return true;
 			}
 			break;
 		}
-		return intered;
+		return false;
+	}
+	
+	private SwipeMenuLayout menu,oldMenu;
+	public void selectSwipeMenu(SwipeMenuLayout menu){
+		this.menu = menu;
 	}
 	
 	void smoothScrollTo(int dx) {

@@ -137,4 +137,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener,Lo
 		});
 	}
 	
+	public MainLayout getMainLayout(){
+		return this.main;
+	}
+	
 }
