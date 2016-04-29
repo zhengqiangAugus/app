@@ -1,16 +1,19 @@
 package cn.swu.swipemenulistview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.widget.ScrollerCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
 
+@SuppressLint("Recycle")
 public class SwipeMenuLayout extends FrameLayout {
 
     private static final int CONTENT_VIEW_ID = 1;
@@ -99,8 +102,15 @@ public class SwipeMenuLayout extends FrameLayout {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
     }
-
-    public boolean onSwipe(MotionEvent event) {
+    
+    VelocityTracker vt;
+    int VELOCITY = 50;
+    @SuppressLint("Recycle")
+	public boolean onSwipe(MotionEvent event) {
+    	if (vt == null) {
+			vt = VelocityTracker.obtain();
+		}
+		vt.addMovement(event);
         switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN:
             mDownX = (int) event.getX();
@@ -113,14 +123,19 @@ public class SwipeMenuLayout extends FrameLayout {
             swipe(dis);
             break;
         case MotionEvent.ACTION_UP:
-            if ((mDownX - event.getX()) > (mMenuView.getWidth() / 2)) {
-                // open
-                smoothOpenMenu();
-            } else {
-                // close
-                smoothCloseMenu();
-                return false;
-            }
+        	int location[] = new int[2];
+        	mContentView.getLocationInWindow(location);
+        	vt.computeCurrentVelocity(100);
+        	float xv = vt.getXVelocity();
+        	if(xv > VELOCITY){
+        		smoothCloseMenu();
+        	}else if(xv < -VELOCITY){
+        		smoothOpenMenu();
+        	}else if(Math.abs(location[0]) > (mMenuView.getWidth() / 2)){
+        		smoothOpenMenu();
+        	}else{
+        		smoothCloseMenu();
+        	}
             break;
         }
         return true;
@@ -136,15 +151,35 @@ public class SwipeMenuLayout extends FrameLayout {
         }
         return false;
     }
-    
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-    	if(event.getAction() == MotionEvent.ACTION_DOWN){
-    		mDownX = (int) event.getX();
-    	}
+        switch (event.getAction()) {
+        case MotionEvent.ACTION_DOWN:
+            mDownX = (int) event.getX();
+            if(isOpen()){
+            	return true;
+            }
+            break;
+        case MotionEvent.ACTION_UP:
+        	if(isOpen()){
+        		smoothCloseMenu();
+        		return true;
+        	}
+        	break;
+        }
         return super.onTouchEvent(event);
     }
 
+    public boolean checkMenu(MotionEvent event){
+    	int location[] = new int[2];
+    	mContentView.getLocationInWindow(location);
+    	if(location[1] > event.getY()||location[1] + mContentView.getHeight() < event.getY()){
+    		smoothCloseMenu();
+    		return true;
+    	}
+    	return false;
+    }
+    
     private void swipe(int dis) {
         if (dis > mMenuView.getWidth()) {
             dis = mMenuView.getWidth();

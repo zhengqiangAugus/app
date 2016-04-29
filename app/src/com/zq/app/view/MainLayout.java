@@ -13,7 +13,6 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
 @SuppressLint({ "ClickableViewAccessibility", "Recycle" })
@@ -21,7 +20,7 @@ public class MainLayout extends PercentRelativeLayout{
 	
 	Scroller scroller;
 	View left , main;
-	RelativeLayout shade;
+	View shade;
 	VelocityTracker vt;
 	
 	public MainLayout(Context context) {
@@ -49,7 +48,7 @@ public class MainLayout extends PercentRelativeLayout{
 	public void init(){
 		left = findViewById(R.id.left_frame);
 		main = findViewById(R.id.center_frame);
-		shade = (RelativeLayout) findViewById(R.id.shade);
+		shade =  findViewById(R.id.shade);
 		main.bringToFront();
 	}
 	
@@ -80,7 +79,6 @@ public class MainLayout extends PercentRelativeLayout{
 		} 
 	}
 	
-	boolean draged = true;
 	float lastX,lastY;
 	float touchSlop;
 	int VELOCITY = 50;
@@ -99,6 +97,10 @@ public class MainLayout extends PercentRelativeLayout{
 				scroller.abortAnimation();
 			}
 			lastX = x;
+			if(closedMenu){
+				closedMenu = false;
+				return false;
+			}
 			break;
 		case MotionEvent.ACTION_MOVE:
 			switch (type) {
@@ -162,17 +164,15 @@ public class MainLayout extends PercentRelativeLayout{
 			case MENU:
 				if(menu!=null){
 					menu.onSwipe(ev);
-					if(!menu.isOpen()){
-						oldMenu = this.menu;
-						menu = null;
-					}
 				}
+				menu = null;
 				break;
 			}
 			break;
 		}
 		return true;
 	}
+	boolean closedMenu = false;
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
 		final int action = ev.getAction();
 		final float x = ev.getX();
@@ -182,22 +182,27 @@ public class MainLayout extends PercentRelativeLayout{
 			if (main.getScrollX() == -left.getWidth()&& lastX > left.getWidth()){
 				return true;
 			}
-			if(menu!=null && oldMenu != menu && oldMenu !=null && menu.isOpen()){
-				menu.smoothCloseMenu();
-				menu = null;
-				return true;
+			if(oldMenu!=null&&oldMenu.isOpen()){
+				boolean noInside = oldMenu.checkMenu(ev);
+				closedMenu = noInside;
+				return noInside;
 			}
 			break;
 		case MotionEvent.ACTION_MOVE:
 			final float dx = x - lastX;
 			if (dx > touchSlop) {
 				type = LAYOUT;
+				if(menu!=null&&menu.isOpen()){
+					type = MENU;
+					oldMenu = menu;
+				}
 				return true;
 			}else if (main.getScrollX() == -left.getWidth()&&Math.abs(dx) > touchSlop) {
 				type = LAYOUT;
 				return true;
 			}else if(menu!=null && -dx > touchSlop){
 				type = MENU;
+				oldMenu = menu;
 				return  true;
 			}else{
 				type = -1;
@@ -208,6 +213,7 @@ public class MainLayout extends PercentRelativeLayout{
 			if (main.getScrollX() == -left.getWidth()&& lastX > left.getWidth()) {
 				return true;
 			}
+			menu = null;
 			break;
 		}
 		return false;
@@ -223,13 +229,6 @@ public class MainLayout extends PercentRelativeLayout{
 		int oldScrollX = main.getScrollX();
 		scroller.startScroll(oldScrollX, main.getScrollY(), dx,main.getScrollY(), duration);
 		invalidate();
-	}
-	
-	public boolean isDraged() {
-		return draged;
-	}
-	public void setDraged(boolean draged) {
-		this.draged = draged;
 	}
 	
 	public void closeLeft(){

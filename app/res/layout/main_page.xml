@@ -16,7 +16,7 @@
 	        layout="@layout/left"
 	        />
 	</FrameLayout >
-	<RelativeLayout 
+	<FrameLayout 
 	    android:id="@+id/shade"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
@@ -27,12 +27,12 @@
 	        android:layout_height="match_parent"
 	        android:background="@drawable/shade_bg"
 	        />
-	</RelativeLayout>
-	<LinearLayout
+	</FrameLayout>
+	<FrameLayout
 	    android:id="@+id/center_frame"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	     >
 	    <include layout="@layout/center"/>
-	</LinearLayout>
+	</FrameLayout>
 </com.zq.app.view.MainLayout >
