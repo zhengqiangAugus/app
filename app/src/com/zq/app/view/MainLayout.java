@@ -52,11 +52,6 @@ public class MainLayout extends PercentRelativeLayout{
 		main.bringToFront();
 	}
 	
-	public void scrollTo(int x, int y) {
-		super.scrollTo(x, y);
-		postInvalidate();
-	}
-	
 	@Override
 	public void computeScroll() {
 		if (!scroller.isFinished()) {
@@ -204,12 +199,9 @@ public class MainLayout extends PercentRelativeLayout{
 				type = MENU;
 				oldMenu = menu;
 				return  true;
-			}else{
-				type = -1;
 			}
 			break;
 		case MotionEvent.ACTION_UP:
-			type = -1;
 			if (main.getScrollX() == -left.getWidth()&& lastX > left.getWidth()) {
 				return true;
 			}
