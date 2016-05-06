@@ -1,15 +1,30 @@
-package cn.swu.swipemenulistview;
+package com.zq.app.view.swipemenu;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.mobileim.conversation.YWConversation;
+
 import android.content.Context;
 
 public class SwipeMenu {
-
+	
+	public static enum MenuType{
+		TOP,UNREAD,DELETE;
+	}
+	
 	private Context mContext;
 	private List<SwipeMenuItem> mItems;
 	private int mViewType;
+	private YWConversation conversation;
+
+	public YWConversation getConversation() {
+		return conversation;
+	}
+
+	public void setConversation(YWConversation conversation) {
+		this.conversation = conversation;
+	}
 
 	public SwipeMenu(Context context) {
 		mContext = context;

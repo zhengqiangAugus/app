@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="@color/white" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="@drawable/aliwx_friend_item_bg" >
+        android:layout_height="65dp" >
 
         <com.zq.app.view.CircleImageView
             android:id="@+id/head"
@@ -33,18 +33,21 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/head"
             android:layout_marginLeft="@dimen/aliwx_common_unit_margin"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="3dp"
             android:layout_toLeftOf="@id/time"
             android:layout_toRightOf="@id/head"
-            android:ellipsize="middle"
+            android:ellipsize="end"
             android:includeFontPadding="false"
+            android:lines="1"
+            android:scrollHorizontally="true"
             android:text="名称"
             android:textColor="@color/aliwx_common_text_color"
-            android:layout_alignTop="@+id/head"
+            android:textSize="17sp"
             android:textStyle="bold"
-            android:textSize="16sp" />
+            android:typeface="monospace" />
 
         <TextView
             android:id="@+id/time"
@@ -55,17 +58,17 @@
             android:layout_alignTop="@id/head"
             android:layout_marginRight="@dimen/aliwx_common_safe_margin"
             android:textColor="@color/aliwx_third_grade_color"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <LinearLayout
             android:id="@+id/content_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="@dimen/aliwx_common_unit_margin"
-            android:layout_marginRight="@dimen/aliwx_message_content_margin_right"
-            android:layout_toRightOf="@id/head"
             android:layout_alignBottom="@+id/head"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="@dimen/aliwx_common_unit_margin"
+            android:layout_toLeftOf="@+id/unread"
+            android:layout_toRightOf="@id/head"
             android:orientation="horizontal" >
 
             <TextView
@@ -73,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:paddingRight="10dip"
+                android:paddingRight="10dp"
                 android:text="@string/aliwx_at_msg_notify"
                 android:textColor="@color/aliwx_text_color_at_notify"
                 android:textSize="@dimen/aliwx_font_third_grade"
@@ -85,9 +88,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:ellipsize="end"
+                android:lines="1"
+                android:scrollHorizontally="true"
                 android:text="最新内容"
                 android:textColor="@color/aliwx_common_alpha_black"
-                android:textSize="@dimen/aliwx_font_third_grade" />
+                android:textSize="16sp" />
         </LinearLayout>
     </RelativeLayout>
 

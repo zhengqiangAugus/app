@@ -1,4 +1,4 @@
-package cn.swu.swipemenulistview;
+package com.zq.app.view.swipemenu;
 
 import java.util.List;
 
@@ -28,13 +28,43 @@ public class SwipeMenuView extends LinearLayout implements OnClickListener {
     public SwipeMenuView(SwipeMenu menu) {
         super(menu.getContext());
         mMenu = menu;
-        List<SwipeMenuItem> items = menu.getMenuItems();
-        int id = 0;
-        for (SwipeMenuItem item : items) {
-            addItem(item, id++);
-        }
+        init();
     }
+    
+    private void init(){
+    	removeAllViews();
+    	List<SwipeMenuItem> items = mMenu.getMenuItems();
+    	int id = 0;
+    	for (SwipeMenuItem item : items) {
+    		addItem(item, id++);
+    	}
+    }
+    
+    public void refresh(){
+    	removeAllViews();
+    	List<SwipeMenuItem> items = mMenu.getMenuItems();
+    	int id = 0;
+    	for (SwipeMenuItem item : items) {
+    		addItem(item, id++);
+    	}
+    }
+    
+    public SwipeMenu getMenu() {
+		return mMenu;
+	}
 
+	public void removeItem(int id){
+    	mMenu.getMenuItems().remove(id);
+    	removeAllViews();
+    	init();
+    }
+    
+    public void updateItem(SwipeMenuItem item, int id){
+    	mMenu.getMenuItems().set(id, item);
+    	removeAllViews();
+    	init();
+    }
+    
     @SuppressWarnings("deprecation")
 	private void addItem(SwipeMenuItem item, int id) {
         LayoutParams params = new LayoutParams(item.getWidth(), LayoutParams.MATCH_PARENT);
@@ -74,7 +104,10 @@ public class SwipeMenuView extends LinearLayout implements OnClickListener {
     @Override
     public void onClick(View v) {
         if (onItemClickListener != null && mLayout.isOpen()) {
-            onItemClickListener.onItemClick(this, mMenu, v.getId());
+            onItemClickListener.onItemClick(this,mMenu, v.getId());
+        }
+        if(mLayout.isOpen()){
+        	mLayout.smoothCloseMenu();
         }
     }
 
@@ -91,6 +124,6 @@ public class SwipeMenuView extends LinearLayout implements OnClickListener {
     }
 
     public static interface OnSwipeItemClickListener {
-        void onItemClick(SwipeMenuView view, SwipeMenu menu, int index);
+        void onItemClick(SwipeMenuView view,SwipeMenu menu, int index);
     }
 }

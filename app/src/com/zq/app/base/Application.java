@@ -21,6 +21,7 @@ import com.zq.app.R;
 import com.zq.app.bean.DaoMaster;
 import com.zq.app.bean.DaoMaster.DevOpenHelper;
 import com.zq.app.bean.DaoSession;
+import com.zq.app.im.ui.ChattingPage;
 import com.zq.app.im.ui.ConversationList;
 
 public final class Application extends android.app.Application{
@@ -74,6 +75,7 @@ public final class Application extends android.app.Application{
 			SysUtil.isMainProcess(getApplicationContext());
 			YWAPI.init(this,preference.getProperty(AppConstants.IM_APPKEY));
 			AdviceBinder.bindAdvice(PointCutEnum.CONVERSATION_FRAGMENT_UI_POINTCUT,ConversationList.class);
+			AdviceBinder.bindAdvice(PointCutEnum.CHATTING_FRAGMENT_UI_POINTCUT,ChattingPage.class);
 		}
 	}
 	

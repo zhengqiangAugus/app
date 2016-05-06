@@ -1,4 +1,6 @@
-package cn.swu.swipemenulistview;
+package com.zq.app.view.swipemenu;
+
+import com.zq.app.view.swipemenu.SwipeMenu.MenuType;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -13,7 +15,15 @@ public class SwipeMenuItem {
     private int titleColor;
     private int titleSize;
     private int width;
+    private MenuType menuType;
+	
+	public MenuType getMenuType() {
+		return menuType;
+	}
 
+	public void setMenuType(MenuType menuType) {
+		this.menuType = menuType;
+	}
     public SwipeMenuItem(Context context) {
         mContext = context;
     }

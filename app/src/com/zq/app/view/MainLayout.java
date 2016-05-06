@@ -1,9 +1,8 @@
 package com.zq.app.view;
 
 
-import cn.swu.swipemenulistview.SwipeMenuLayout;
-
 import com.zq.app.R;
+import com.zq.app.view.swipemenu.SwipeMenuLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -168,6 +167,7 @@ public class MainLayout extends PercentRelativeLayout{
 		return true;
 	}
 	boolean closedMenu = false;
+	boolean isFlingMenu = false;
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
 		final int action = ev.getAction();
 		final float x = ev.getX();
@@ -179,6 +179,7 @@ public class MainLayout extends PercentRelativeLayout{
 			}
 			if(oldMenu!=null&&oldMenu.isOpen()){
 				boolean noInside = oldMenu.checkMenu(ev);
+				isFlingMenu = !noInside;
 				closedMenu = noInside;
 				return noInside;
 			}
@@ -198,6 +199,11 @@ public class MainLayout extends PercentRelativeLayout{
 			}else if(menu!=null && -dx > touchSlop){
 				type = MENU;
 				oldMenu = menu;
+				return  true;
+			}
+			if(oldMenu!=null&&oldMenu.isOpen() && isFlingMenu){
+				type = MENU;
+				menu = oldMenu;
 				return  true;
 			}
 			break;

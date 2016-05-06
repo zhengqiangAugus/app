@@ -1,4 +1,4 @@
-package cn.swu.swipemenulistview;
+package com.zq.app.view.swipemenu;
 
 public interface SwipeMenuCreator {
 

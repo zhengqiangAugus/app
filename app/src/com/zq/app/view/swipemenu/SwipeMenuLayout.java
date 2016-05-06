@@ -1,4 +1,4 @@
-package cn.swu.swipemenulistview;
+package com.zq.app.view.swipemenu;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -37,8 +37,7 @@ public class SwipeMenuLayout extends FrameLayout {
         this(contentView, menuView, null, null);
     }
 
-    public SwipeMenuLayout(View contentView, SwipeMenuView menuView, Interpolator closeInterpolator,
-            Interpolator openInterpolator) {
+    public SwipeMenuLayout(View contentView, SwipeMenuView menuView, Interpolator closeInterpolator,Interpolator openInterpolator) {
         super(contentView.getContext());
         mCloseInterpolator = closeInterpolator;
         mOpenInterpolator = openInterpolator;
@@ -170,11 +169,20 @@ public class SwipeMenuLayout extends FrameLayout {
         return super.onTouchEvent(event);
     }
 
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+    	if(ev.getAction() == MotionEvent.ACTION_DOWN){
+    		onTouchEvent(ev);
+    	}
+    	return super.onInterceptTouchEvent(ev);
+    }
+    
     public boolean checkMenu(MotionEvent event){
     	int location[] = new int[2];
     	mContentView.getLocationInWindow(location);
     	if(location[1] > event.getY()||location[1] + mContentView.getHeight() < event.getY()){
     		smoothCloseMenu();
+    		event.setAction(MotionEvent.ACTION_CANCEL);
     		return true;
     	}
     	return false;
