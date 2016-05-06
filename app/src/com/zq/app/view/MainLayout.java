@@ -201,9 +201,10 @@ public class MainLayout extends PercentRelativeLayout{
 				oldMenu = menu;
 				return  true;
 			}
-			if(oldMenu!=null&&oldMenu.isOpen() && isFlingMenu){
+			if(isFlingMenu){
 				type = MENU;
 				menu = oldMenu;
+				isFlingMenu = false;
 				return  true;
 			}
 			break;
