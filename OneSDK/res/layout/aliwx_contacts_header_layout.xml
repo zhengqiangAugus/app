@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="#f2f2f2"
+    android:background="#ffffff"
     android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/aliwx_search_layout"
         android:layout_width="fill_parent"
-        android:layout_height="27dip"
+        android:layout_height="30dip"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"

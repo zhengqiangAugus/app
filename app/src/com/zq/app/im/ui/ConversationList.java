@@ -113,7 +113,8 @@ public class ConversationList extends IMConversationListUI implements View.OnTou
 			convertView.setOnTouchListener(this);
 			holder.menu = menuView;
 			convertView.setTag(holder);
-			content.setBackgroundColor(Color.parseColor("#55ffffff"));
+			content.setBackgroundColor(Color.TRANSPARENT);
+			convertView.setBackgroundColor(Color.RED);
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 			holder.menu.getMenu().getMenuItems().clear();

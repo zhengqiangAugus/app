@@ -34,11 +34,6 @@ public class SnowImageView extends ImageView {
 		super(context);
 	}
 
-	public SnowImageView(Context context, AttributeSet attrs, int defStyleAttr,int defStyleRes) {
-		super(context, attrs, defStyleAttr, defStyleRes);
-		init(context, attrs);
-	}
-
   	Snow snows[] = new Snow[25];
   	void init(Context context,AttributeSet attrs){
 		DisplayMetrics dm = new DisplayMetrics();
