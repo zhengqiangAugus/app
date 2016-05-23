@@ -79,7 +79,7 @@ public class PercentFrameLayout extends FrameLayout {
 
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new LayoutParams(getContext(), attrs); 
+        return new LayoutParams(getContext(), attrs);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class PercentFrameLayout extends FrameLayout {
 
         public LayoutParams(LayoutParams source) {
             this((FrameLayout.LayoutParams) source);
-            mPercentLayoutInfo = source.mPercentLayoutInfo; 
+            mPercentLayoutInfo = source.mPercentLayoutInfo;
         }
 
         @Override
