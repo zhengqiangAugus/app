@@ -19,7 +19,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 
 public class GuidePageActivity extends Activity{
-	
+	 
 	/**
 	 * 用户DAO
 	 */
