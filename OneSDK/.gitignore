@@ -1,3 +1,5 @@
 /gen
 /src
 /bin
+/.classpath
+/.project
