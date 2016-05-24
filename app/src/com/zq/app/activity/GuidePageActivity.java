@@ -30,7 +30,7 @@ public class GuidePageActivity extends Activity{
 		setContentView(R.layout.guide);
 		init();
 	}
-	Intent intent; 
+	Intent intent;
 	private void init(){
 		long start = System.currentTimeMillis();
 		
