@@ -33,7 +33,6 @@ public class GuidePageActivity extends Activity{
 	Intent intent;
 	private void init(){
 		long start = System.currentTimeMillis();
-		
 		List<User> users = userDao.queryBuilder().where(Properties.IsLogin.eq(true)).list();
 		if(users!=null&&users.size()>0){
 			User user = users.get(0);
