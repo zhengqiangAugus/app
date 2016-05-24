@@ -29,7 +29,7 @@ public class GuidePageActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.guide);
 		init();
-	}
+	} 
 	Intent intent;
 	private void init(){
 		long start = System.currentTimeMillis();
