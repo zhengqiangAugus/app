@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.KeyEvent;
 
 public class GuidePageActivity extends Activity{
 	 
@@ -62,21 +63,16 @@ public class GuidePageActivity extends Activity{
 		}
 	}
 	
-	protected void onRestart() {
-		super.onRestart();
-		List<User> users = userDao.queryBuilder().where(Properties.IsLogin.eq(true)).list();
-		if(users!=null&&users.size()>0){
-			intent = new Intent(this,MainActivity.class);
-		}else{
-			intent = new Intent(this,LoginActivity.class);
-		}
-		startActivity(intent);
-		finish();
-	}
-	
 	@Override
-	public void finish() {
-		moveTaskToBack(false);
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			Intent home = new Intent(Intent.ACTION_MAIN);  
+
+			home.addCategory(Intent.CATEGORY_HOME);   
+
+			startActivity(home); 
+		}
+		return true ;
 	}
 	
 }

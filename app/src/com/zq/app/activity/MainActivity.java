@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -139,6 +140,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener,Lo
 	
 	public MainLayout getMainLayout(){
 		return this.main;
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			Intent home = new Intent(Intent.ACTION_MAIN);  
+
+			home.addCategory(Intent.CATEGORY_HOME);   
+
+			startActivity(home); 
+		}
+		return true ;
 	}
 	
 }
