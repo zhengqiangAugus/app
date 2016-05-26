@@ -84,10 +84,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener,Lo
 		}
 	}
 	
-	public void finish() {
-		moveTaskToBack(false);
-	}
-	
 	public void onTabClick(View view){
 		int index = 0;
 		switch (view.getId()) {
@@ -145,13 +141,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener,Lo
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
-			Intent home = new Intent(Intent.ACTION_MAIN);  
-
-			home.addCategory(Intent.CATEGORY_HOME);   
-
-			startActivity(home); 
+			moveTaskToBack(false);
+			return true ;
 		}
-		return true ;
+		return super.onKeyDown(keyCode, event);
 	}
 	
 }

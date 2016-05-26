@@ -207,15 +207,11 @@ public class LoginActivity extends Activity implements View.OnClickListener,Load
 		pwd.setText(user.getPassword());
 	}
 	
-	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
-			Intent home = new Intent(Intent.ACTION_MAIN);  
-
-			home.addCategory(Intent.CATEGORY_HOME);   
-
-			startActivity(home); 
+			moveTaskToBack(false);
+			return true ;
 		}
-		return true ;
+		return super.onKeyDown(keyCode, event);
 	}
 }
