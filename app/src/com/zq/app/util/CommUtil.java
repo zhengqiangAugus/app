@@ -130,7 +130,7 @@ public class CommUtil {
 	public static boolean isServiceWork(Context mContext, String serviceName) {  
 	    boolean isWork = false;  
 	    ActivityManager myAM = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);  
-	    List<RunningServiceInfo> myList = myAM.getRunningServices(40);  
+	    List<RunningServiceInfo> myList = myAM.getRunningServices(99);  
 	    if (myList.size() <= 0) {  
 	        return false;  
 	    }  
